@@ -23,4 +23,27 @@ digraph code {
 
 This can be pasted into something like Webgraphviz (http://webgraphviz.com/) to get a visual representation of what references what in your vala code.
 
-Save the digraph into a file and then run 
+Save the digraph into a file and then run `find-cyles.py` on it to get an output of potential circular references. It will look something like the following:
+
+```
+['Gtk.RadioToolButton']
+['Gtk.RadioButton']
+['Gdk.Event']
+['Gtk.RadioMenuItem']
+['Granite.Widgets.SourceList.Item']
+['Gtk.Window', 'Gtk.Application']
+['Gtk.Window']
+['Gtk.RadioAction']
+['Gdk.Device']
+['Atk.Object']
+['Gdk.GLContext']
+['AppCenter.Settings']
+['AppCenter.MainWindow', 'AppCenter.Homepage']
+['Gtk.Widget', 'Gtk.Container']
+['Gtk.Widget']
+['Gtk.StyleContext']
+```
+
+Circular references that exist solely in Gtk or other well-established system libraries can probably be safely ignored. But pay close attention to any in your own code and consider if they need to be weak or not.
+
+**warning:** This is not guaranteed to find all circular references in your code, but is a good starting point.
