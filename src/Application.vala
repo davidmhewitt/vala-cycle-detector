@@ -236,6 +236,9 @@ class Vala.Compiler {
 			context.add_define ("VALA_0_%d".printf (i));
 		}
 
+#if VALA_0_44
+		context.set_target_glib_version (target_glib);
+#else
 		int glib_major = 2;
 		int glib_minor = 40;
 		if (target_glib != null && target_glib.scanf ("%d.%d", out glib_major, out glib_minor) != 2) {
@@ -251,6 +254,7 @@ class Vala.Compiler {
 		for (int i = 16; i <= glib_minor; i += 2) {
 			context.add_define ("GLIB_2_%d".printf (i));
 		}
+#endif
 
 		if (!nostdpkg) {
 			/* default packages */

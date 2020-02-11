@@ -181,8 +181,13 @@ public class GraphBuilder : Vala.CodeVisitor {
 
         if (f.parent_symbol is Vala.Class) {
             var parent_class = f.parent_symbol as Vala.Class;
+#if VALA_0_48
+            if (f.variable_type is Vala.ObjectType && f.variable_type.type_symbol is Vala.Class) {
+                var to_class = f.variable_type.type_symbol as Vala.Class;
+#else
             if (f.variable_type is Vala.ObjectType && f.variable_type.data_type is Vala.Class) {
                 var to_class = f.variable_type.data_type as Vala.Class;
+#endif
 
                 if (to_class.base_class != null) {
                     add_pair (parent_class, to_class.base_class);
@@ -191,9 +196,15 @@ public class GraphBuilder : Vala.CodeVisitor {
                 if (f.variable_type.has_type_arguments ()) {
                     if (to_class.name.contains ("List") || to_class.name.contains ("Map") || to_class.name.contains ("Set")) {
                         foreach (var arg in f.variable_type.get_type_arguments ()) {
+#if VALA_0_48
+                            if (arg.type_symbol is Vala.Class) {
+                                add_pair (parent_class, arg.type_symbol as Vala.Class);
+                            }
+#else
                             if (arg.data_type is Vala.Class) {
                                 add_pair (parent_class, arg.data_type as Vala.Class);
                             }
+#endif
                         }
                     }
                 }
@@ -220,14 +231,25 @@ public class GraphBuilder : Vala.CodeVisitor {
 
             if (f.parent_symbol is Vala.Class) {
                 var parent_class = f.parent_symbol as Vala.Class;
+#if VALA_0_48
+                if (f.variable_type is Vala.ObjectType && f.variable_type.type_symbol is Vala.Class) {
+                    var to_class = f.variable_type.type_symbol as Vala.Class;
+#else
                 if (f.variable_type is Vala.ObjectType && f.variable_type.data_type is Vala.Class) {
                     var to_class = f.variable_type.data_type as Vala.Class;
+#endif
                     if (f.variable_type.has_type_arguments ()) {
                         if (to_class.name.contains ("List") || to_class.name.contains ("Map") || to_class.name.contains ("Set")) {
                             foreach (var arg in f.variable_type.get_type_arguments ()) {
+#if VALA_0_48
+                                if (arg.type_symbol is Vala.Class) {
+                                    list.add (arg.type_symbol as Vala.Class);
+                                }
+#else
                                 if (arg.data_type is Vala.Class) {
                                     list.add (arg.data_type as Vala.Class);
                                 }
+#endif
                             }
                         }
                     }
@@ -252,14 +274,25 @@ public class GraphBuilder : Vala.CodeVisitor {
 
             if (prop.parent_symbol is Vala.Class) {
                 var parent_class = prop.parent_symbol as Vala.Class;
+#if VALA_0_48
+                if (prop.property_type is Vala.ObjectType && prop.property_type.type_symbol is Vala.Class) {
+                    var to_class = prop.property_type.type_symbol as Vala.Class;
+#else
                 if (prop.property_type is Vala.ObjectType && prop.property_type.data_type is Vala.Class) {
                     var to_class = prop.property_type.data_type as Vala.Class;
+#endif
                     if (prop.property_type.has_type_arguments ()) {
                         if (to_class.name.contains ("List") || to_class.name.contains ("Map") || to_class.name.contains ("Set")) {
                             foreach (var arg in prop.property_type.get_type_arguments ()) {
+#if VALA_0_48
+                                if (arg.type_symbol is Vala.Class) {
+                                    list.add (arg.type_symbol as Vala.Class);
+                                }
+#else
                                 if (arg.data_type is Vala.Class) {
                                     list.add (arg.data_type as Vala.Class);
                                 }
+#endif
                             }
                         }
                     }
@@ -369,8 +402,13 @@ public class GraphBuilder : Vala.CodeVisitor {
 
         if (prop.parent_symbol is Vala.Class) {
             var parent_class = prop.parent_symbol as Vala.Class;
+#if VALA_0_48
+            if (prop.property_type is Vala.ObjectType && prop.property_type.type_symbol is Vala.Class) {
+                var to_class = prop.property_type.type_symbol as Vala.Class;
+#else
             if (prop.property_type is Vala.ObjectType && prop.property_type.data_type is Vala.Class) {
                 var to_class = prop.property_type.data_type as Vala.Class;
+#endif
 
                 if (to_class.base_class != null) {
                     add_pair (parent_class, to_class.base_class);
@@ -379,9 +417,15 @@ public class GraphBuilder : Vala.CodeVisitor {
                 if (prop.property_type.has_type_arguments ()) {
                     if (to_class.name.contains ("List") || to_class.name.contains ("Map") || to_class.name.contains ("Set")) {
                         foreach (var arg in prop.property_type.get_type_arguments ()) {
+#if VALA_0_48
+                            if (arg.type_symbol is Vala.Class) {
+                                add_pair (parent_class, arg.type_symbol as Vala.Class);
+                            }
+#else
                             if (arg.data_type is Vala.Class) {
                                 add_pair (parent_class, arg.data_type as Vala.Class);
                             }
+#endif
                         }
                     }
                 }
