@@ -242,11 +242,7 @@ class Vala.Compiler {
 			Report.error (null, "Invalid format for --target-glib");
 		}
 
-		context.target_glib_major = glib_major;
-		context.target_glib_minor = glib_minor;
-		if (context.target_glib_major != 2) {
-			Report.error (null, "This version of valac only supports GLib 2");
-		}
+		context.set_target_glib_version(@"$glib_major.$glib_minor");
 
 		for (int i = 16; i <= glib_minor; i += 2) {
 			context.add_define ("GLIB_2_%d".printf (i));
